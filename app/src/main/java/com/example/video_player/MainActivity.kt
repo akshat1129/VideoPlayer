@@ -49,10 +49,8 @@ class MainActivity : AppCompatActivity() {
         playerView.player = player
 
         // Listen for when the standard controls appear or disappear
-        // Listen for when the standard controls appear or disappear
-        playerView.setControllerVisibilityListener(PlayerView.ControllerVisibilityListener { visibility ->
-            // Update the volume slider's visibility to match the controls
-            volumeSeekBar.visibility = visibility
+        playerView.setControllerVisibilityListener(PlayerView.ControllerVisibilityListener {
+            visibility -> volumeSeekBar.visibility = visibility
         })
 
         // 3. Build a MediaItem from a sample video URL
@@ -73,11 +71,21 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Optional: You could show a volume icon here when the user starts touching the slider
+                // Animate: Scale up to 115% of its original size over 150 milliseconds
+                seekBar?.animate()
+                    ?.scaleX(1.15f)
+                    ?.scaleY(1.15f)
+                    ?.setDuration(150)
+                    ?.start()
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Optional: Hide the volume icon when the user stops touching the slider
+                // Animate: Scale back down to 100% of its original size over 150 milliseconds
+                seekBar?.animate()
+                    ?.scaleX(1.0f)
+                    ?.scaleY(1.0f)
+                    ?.setDuration(150)
+                    ?.start()
             }
         })
 
